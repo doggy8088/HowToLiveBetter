@@ -269,6 +269,8 @@ export const GLOBAL_VOCAB = [
   ['數字時代', '數位時代'],
   ['數字落差', '數位落差'],
   ['數字遺產', '數位遺產'],
+  ['數字發展部', '數位發展部'], // Ministry of Digital Affairs (Issue #11)
+  ['數字產業署', '數位產業署'], // Administration for Digital Industries
   ['數字產品', '數位產品'],
   ['數字內容', '數位內容'],
   ['數字化', '數位化'], // in case a restore above reintroduced it
