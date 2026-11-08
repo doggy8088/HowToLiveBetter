@@ -391,6 +391,8 @@ export const GLOBAL_VOCAB = [
   // 心理支持 only in the SKILL's 1925 sentence; the books quote an
   // official service name with 心理支援服務 and must keep 支援 there.
   ['接的是心理支援，不會派出救護車', '接的是心理支持，不會派出救護車'],
+  // 定製→客製化 would garble the fixed proper name 特定製造業 (Issue #11)
+  ['特客製化造業', '特定製造業'],
   ['法律支援你', '法律支持你'], // the book's own house phrase
   ['法律只支援', '法律只支持'],
   ['法院不支援', '法院不支持'],
