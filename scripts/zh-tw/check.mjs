@@ -61,6 +61,8 @@ const ALLOW_COMPOUNDS = [
   '網絡安全事件', '網絡安全等級保護', '互聯網絡信息中心', '網絡運營',
   '產品質量法', '產品質量', '醫療質量', '工程質量', '質量監督',
   '數位化', '數位時代', '數位落差', '數位遺產', '數位產品', '數位內容',
+  // Taiwan agency names keep 數位 (restored in vocab.mjs; Issue #11).
+  '數位發展部', '數位產業署',
   '打印遺囑', '視頻號',
   // Official titles that keep 篩查 (protected in vocab.mjs).
   '新生兒疾病篩查管理辦法', '丙型病毒性肝炎篩查及管理',
