@@ -20,7 +20,7 @@
 [![線上檢索](https://img.shields.io/badge/%E7%B7%9A%E4%B8%8A%E6%AA%A2%E7%B4%A2-%E9%BB%9E%E9%80%99%E8%A3%A1%E6%89%93%E9%96%8B-3451b2?style=flat-square)](https://how-to-live-better.gh.miniasp.com/)
 [![條目](https://img.shields.io/badge/%E6%A2%9D%E7%9B%AE-772%20%E6%A2%9D-18794e?style=flat-square)](#目錄)
 [![證據分級](https://img.shields.io/badge/%E8%AD%89%E6%93%9A%E5%88%86%E7%B4%9A-A%20478%20%C2%B7%20B%20240%20%C2%B7%20C%2054-915930?style=flat-square)](#證據分級)
-[![原始文獻](https://img.shields.io/badge/%E5%8E%9F%E5%A7%8B%E6%96%87%E7%8D%BB-2287%20%E6%A2%9D%E9%80%A3%E7%B5%90-565a5f?style=flat-square)](docs/核實記錄/)
+[![原始文獻](https://img.shields.io/badge/%E5%8E%9F%E5%A7%8B%E6%96%87%E7%8D%BB-2289%20%E6%A2%9D%E9%80%A3%E7%B5%90-565a5f?style=flat-square)](docs/核實記錄/)
 [![授權聲明](https://img.shields.io/badge/%E6%8E%88%E6%AC%8A%E8%81%B2%E6%98%8E-CC%20BY%204.0-565a5f?style=flat-square)](#授權聲明)
 [![Claude Code 協助編寫](https://img.shields.io/badge/Claude%20Code-%E5%8D%94%E5%8A%A9%E7%B7%A8%E5%AF%AB-D97757?style=flat-square&logo=claude&logoColor=white)](https://claude.com/claude-code)
 
@@ -56,7 +56,7 @@ AI 助手 skill 支援 Claude Code 和 Codex。裝上後直接問「替朋友擔
 </td></tr>
 <tr><td align="right"><b>其他語言</b></td><td align="left">
 
-[English](其他語言.md) · [Русский](其他語言.md) · [Español](其他語言.md) · [Português](其他語言.md) · [العربية](其他語言.md) · [Bahasa Indonesia](其他語言.md) · [Tiếng Việt](其他語言.md)
+[English](其他語言.md) · [Русский](其他語言.md) · [Español](其他語言.md) · [Português](其他語言.md) · [العربية](其他語言.md) · [Bahasa Indonesia](其他語言.md) · [Tiếng Việt](其他語言.md) · [繁體中文（台灣）](其他語言.md)
 
 讀者翻譯的版本，各版本的網站和維護者見[其他語言](其他語言.md)
 
@@ -312,7 +312,7 @@ A 級只說明「有具體數字、出處可核」，不說明這個數字一定
 
 本書在 Claude Code 協助下編寫：查找原始文獻、逐條核對數字與原文是否一致、維護交叉引用和建構指令碼。選題、取捨和最終審定由作者負責，每條數字都能在來源欄的原文裡找到。
 
-倉庫根目錄的 `index.html` 是線上檢索頁：按關鍵詞、章節、證據等級和成本維度（花錢、花時間、要毅力）篩選條目，資料直接讀本文件。在倉庫設定裡開啟 GitHub Pages（Deploy from a branch，分支 main，目錄 /）後即可訪問。`tools/epub/` 是電子書生成指令碼，在倉庫根目錄跑 `npm --prefix tools/epub ci && npm --prefix tools/epub run build` 在本地出一本 EPUB 到 `dist/`；GitHub Actions 在正文改動後自動跑同一個指令碼並更新 Release。
+倉庫根目錄的 `index.html` 是線上檢索頁：按關鍵詞、章節、證據等級和成本維度（花錢、花時間、要毅力）篩選條目，章節目錄和術語表從本文件讀取，條目正文從 `book/` 下的章節文件讀取。在倉庫設定裡開啟 GitHub Pages（Deploy from a branch，分支 main，目錄 /）後即可訪問。`tools/epub/` 是電子書生成指令碼，在倉庫根目錄跑 `npm --prefix tools/epub ci && npm --prefix tools/epub run build` 在本地出一本 EPUB 到 `dist/`；GitHub Actions 在正文改動後自動跑同一個指令碼並更新 Release。
 
 ## 正文
 
