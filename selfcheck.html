@@ -319,6 +319,26 @@ const STORE = 'selfcheck-v1';
 let ans = {};
 try { ans = JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) {}
 const save = () => { try { localStorage.setItem(STORE, JSON.stringify(ans)); } catch (e) {} };
+// 舊版題目識別碼遷移：題目 key 改名後，舊 key 存的答案沿用至新 key；
+// 新 key 已有答案時保留新答案，舊 key 隨後刪除。舊識別碼以 Unicode 跳脫寫入。
+const KEY_MIGRATIONS = {
+  '34:對乙\u9170氨基酚': '34:乙醯胺酚',
+  '1:燃氣軟管': '1:瓦斯軟管',
+  '13:火災時': '13:濃煙關門',
+  '5:個稅彙算': '5:綜合所得稅結算申報',
+  '5:家庭共濟': '5:眷屬依附加保',
+  '8:不把銀行卡': '8:不把銀行帳戶',
+  '8:徵信報告': '8:聯徵信用報告',
+};
+let migrated = false;
+for (const [oldK, newK] of Object.entries(KEY_MIGRATIONS)) {
+  if (ans[oldK] !== undefined) {
+    if (ans[newK] === undefined) ans[newK] = ans[oldK];
+    delete ans[oldK];
+    migrated = true;
+  }
+}
+if (migrated) save();
 const profile = () => Object.fromEntries(PROFILE.map(p => [p.id, ans['p:'+p.id]]));
 // 使用新欄位 ageYears，舊版年齡段答案不會被當成實際年齡；其他答案保留。
 const profileDone = () => PROFILE.every(p => p.type === 'number'
