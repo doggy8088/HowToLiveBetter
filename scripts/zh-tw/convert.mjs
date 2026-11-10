@@ -463,6 +463,16 @@ sub('selfcheck.html', [
   ["const save = () => { try { localStorage.setItem(STORE, JSON.stringify(ans)); } catch (e) {} };\nconst profile = () => Object.fromEntries(PROFILE.map(p => [p.id, ans['p:'+p.id]]));",
    "const save = () => { try { localStorage.setItem(STORE, JSON.stringify(ans)); } catch (e) {} };\n// 舊版題目識別碼遷移：題目 key 改名後，舊 key 存的答案沿用至新 key；\n// 新 key 已有答案時保留新答案，舊 key 隨後刪除。舊識別碼以 Unicode 跳脫寫入。\nconst KEY_MIGRATIONS = {\n  '34:對乙\\u9170氨基酚': '34:乙醯胺酚',\n  '1:燃氣軟管': '1:瓦斯軟管',\n  '8:不把銀行卡': '8:不把銀行帳戶',\n  '8:徵信報告': '8:聯徵信用報告',\n};\nlet migrated = false;\nfor (const [oldK, newK] of Object.entries(KEY_MIGRATIONS)) {\n  if (ans[oldK] !== undefined) {\n    if (ans[newK] === undefined) ans[newK] = ans[oldK];\n    delete ans[oldK];\n    migrated = true;\n  }\n}\nif (migrated) save();\nconst profile = () => Object.fromEntries(PROFILE.map(p => [p.id, ans['p:'+p.id]]));"],
 ]);
+// 實質改題的三題加 rev:2（PR #23 Copilot 留言）：PR #19 的遷移曾在
+// PR #19 合併到 PR #23 合併之間的空窗期，把舊答案搬到新 key 並存回；
+// 只從對照表移除映射擋不住已遷移的答案。qid() 遇 rev 產生 :v2 新 key，
+// 舊答案失效、讀者只需重答這三題；其餘四組同義映射的答案不受影響。
+// 舊規則不含 rev，重跑不再命中（上游 B 型肝炎題已有 rev:2 前例）。
+sub('selfcheck.html', [
+  ["key:'濃煙關門', text:", "key:'濃煙關門', rev:2, text:"],
+  ["key:'綜合所得稅結算申報', text:", "key:'綜合所得稅結算申報', rev:2, text:"],
+  ["key:'眷屬依附加保', text:", "key:'眷屬依附加保', rev:2, text:"],
+]);
 // README 的章節摘要是上游的主題標籤，乙批改詞一併對齊（衍生項目、無收益
 // 項目等 item 義的「項目」不在此列）。
 sub('README.md', [
