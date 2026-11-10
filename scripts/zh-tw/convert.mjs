@@ -453,13 +453,15 @@ sub('selfcheck.html', [
 ]);
 // 自查頁舊答案遷移（PR #17 Copilot 留言）：第 34 節藥名改為乙醯胺酚後，
 // 題目 key 跟著改名，舊 key 存的答案讀不到。載入時把舊 key 的答案搬到新 key。
-// 一併遷移歷次改名的題目 key（瓦斯軟管、濃煙關門、綜合所得稅結算申報、
-// 眷屬依附加保、不把銀行帳戶、聯徵信用報告），同型問題一次修掉。
+// 只遷移「同義改名」（題目動作不變，只換台灣說法）：乙醯胺酚、瓦斯軟管、
+// 不把銀行帳戶、聯徵信用報告。題面實質改寫的三題（濃煙關門、綜合所得稅
+// 結算申報、眷屬依附加保）刻意不遷移：舊答案 y 不能證明新動作已確認
+//（PR #19 Copilot 留言），留給讀者重答。
 // 舊識別碼以 Unicode 跳脫寫入，轉換規則不會誤改；錨定 save＋profile 兩行，
 // 重跑時不再命中，不會重複插入（PR #14 同型教訓）。
 sub('selfcheck.html', [
   ["const save = () => { try { localStorage.setItem(STORE, JSON.stringify(ans)); } catch (e) {} };\nconst profile = () => Object.fromEntries(PROFILE.map(p => [p.id, ans['p:'+p.id]]));",
-   "const save = () => { try { localStorage.setItem(STORE, JSON.stringify(ans)); } catch (e) {} };\n// 舊版題目識別碼遷移：題目 key 改名後，舊 key 存的答案沿用至新 key；\n// 新 key 已有答案時保留新答案，舊 key 隨後刪除。舊識別碼以 Unicode 跳脫寫入。\nconst KEY_MIGRATIONS = {\n  '34:對乙\\u9170氨基酚': '34:乙醯胺酚',\n  '1:燃氣軟管': '1:瓦斯軟管',\n  '13:火災時': '13:濃煙關門',\n  '5:個稅彙算': '5:綜合所得稅結算申報',\n  '5:家庭共濟': '5:眷屬依附加保',\n  '8:不把銀行卡': '8:不把銀行帳戶',\n  '8:徵信報告': '8:聯徵信用報告',\n};\nlet migrated = false;\nfor (const [oldK, newK] of Object.entries(KEY_MIGRATIONS)) {\n  if (ans[oldK] !== undefined) {\n    if (ans[newK] === undefined) ans[newK] = ans[oldK];\n    delete ans[oldK];\n    migrated = true;\n  }\n}\nif (migrated) save();\nconst profile = () => Object.fromEntries(PROFILE.map(p => [p.id, ans['p:'+p.id]]));"],
+   "const save = () => { try { localStorage.setItem(STORE, JSON.stringify(ans)); } catch (e) {} };\n// 舊版題目識別碼遷移：題目 key 改名後，舊 key 存的答案沿用至新 key；\n// 新 key 已有答案時保留新答案，舊 key 隨後刪除。舊識別碼以 Unicode 跳脫寫入。\nconst KEY_MIGRATIONS = {\n  '34:對乙\\u9170氨基酚': '34:乙醯胺酚',\n  '1:燃氣軟管': '1:瓦斯軟管',\n  '8:不把銀行卡': '8:不把銀行帳戶',\n  '8:徵信報告': '8:聯徵信用報告',\n};\nlet migrated = false;\nfor (const [oldK, newK] of Object.entries(KEY_MIGRATIONS)) {\n  if (ans[oldK] !== undefined) {\n    if (ans[newK] === undefined) ans[newK] = ans[oldK];\n    delete ans[oldK];\n    migrated = true;\n  }\n}\nif (migrated) save();\nconst profile = () => Object.fromEntries(PROFILE.map(p => [p.id, ans['p:'+p.id]]));"],
 ]);
 // README 的章節摘要是上游的主題標籤，乙批改詞一併對齊（衍生項目、無收益
 // 項目等 item 義的「項目」不在此列）。
