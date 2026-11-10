@@ -189,6 +189,20 @@ sub('book/03-不要浪費精力.md', [
   ['哮喘', '氣喘'], ['褪黑素', '褪黑激素'], ['本科生', '大學生'],
   ['沒閤眼的水平', '沒閤眼的水準'], ['不睡的水平', '不睡的水準'],
 ]);
+// Drug names (Issue #15, SanHsien; verified against TFDA labels): Taiwan
+// acetaminophen is 乙醯胺酚, acetylcysteine is 乙醯半胱胺酸, opioids are
+// 鴉片類. File-scoped only: docs/核實記錄/ quotes mainland sources
+// verbatim (NMPA notices, ICHD-3 Chinese edition) and keeps their wording.
+sub('book/34-家裡的常備藥別吃出事.md', [
+  ['對乙酰氨基酚', '乙醯胺酚'], ['阿片', '鴉片'],
+  ['N-乙酰半胱氨酸', '乙醯半胱胺酸（N-acetylcysteine / NAC）'],
+]);
+sub('book/03-不要浪費精力.md', [['對乙酰氨基酚', '乙醯胺酚']]);
+sub('README.md', [['對乙酰氨基酚', '乙醯胺酚']]);
+sub('CLAUDE.md', [['對乙酰氨基酚', '乙醯胺酚']]);
+sub('docs/剛確診慢性病之後.md', [['對乙酰氨基酚', '乙醯胺酚']]);
+sub('index.html', [['對乙酰氨基酚別吃重複', '乙醯胺酚別吃重複']]);
+sub('selfcheck.html', [['對乙酰氨基酚', '乙醯胺酚']]);
 sub('book/23-學什麼技能划算.md', [
   ['本科', '大學'], ['短週期項目', '短週期課程'],
   ['按國家發展水平', '按國家發展水準'],
