@@ -14,7 +14,12 @@ const crc32 = buf => {
 };
 
 // files: [{ name, data: Buffer, store?: true }]
-export function zip(files, now = new Date()) {
+// unix：把「由哪個系統打的包」標成 Unix。檔名本來就按 UTF-8 寫並打了 UTF-8 標誌，多數工具認這個標誌；
+// 但不認它的老 unzip（Git Bash 自帶的那個）見到預設的 DOS 標記，會把檔名當 DOS 程式碼頁再轉一遍，
+// 中文全成亂碼，標成 Unix 它就原樣照搬。要給人解壓出中文檔名的包才開，EPUB 和 Anki 不解壓，用不著。
+export function zip(files, now = new Date(), { unix = false } = {}) {
+  const madeBy = unix ? (3 << 8) | 20 : 20;
+  const attrs = unix ? (0o100644 << 16) >>> 0 : 0;
   const dosTime = (now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1);
   const dosDate = ((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate();
   const locals = [];
@@ -38,7 +43,7 @@ export function zip(files, now = new Date()) {
     local.writeUInt16LE(name.length, 26);
     const central = Buffer.alloc(46);
     central.writeUInt32LE(0x02014b50, 0);
-    central.writeUInt16LE(20, 4);
+    central.writeUInt16LE(madeBy, 4);
     central.writeUInt16LE(20, 6);
     central.writeUInt16LE(0x0800, 8);
     central.writeUInt16LE(method, 10);
@@ -48,6 +53,7 @@ export function zip(files, now = new Date()) {
     central.writeUInt32LE(data.length, 20);
     central.writeUInt32LE(f.data.length, 24);
     central.writeUInt16LE(name.length, 28);
+    central.writeUInt32LE(attrs, 38);
     central.writeUInt32LE(offset, 42);
     locals.push(local, name, data);
     centrals.push(central, name);

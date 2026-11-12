@@ -44,6 +44,18 @@ git clone --depth 1 https://github.com/doggy8088/HowToLiveBetter.git "${TMPDIR:-
 
 整本 1.3 MB，淺複製一次幾秒。取不到網路就如實說取不到，不替代正文。
 
+## 打成離線包
+
+要把 skill 上傳到別處，或者發給連不上 GitHub 的人，在倉庫根目錄跑：
+
+```bash
+node tools/skill/build.mjs
+```
+
+產物是 `dist/life-decision-guide.zip`，約 1 MB。裡面除了 SKILL.md，還帶著全書正文和一份條目索引 `references/index.tsv`，裝上以後不用聯網。壓縮包裡套著一層 `life-decision-guide/` 目錄。上傳的地方要求 SKILL.md 在壓縮包根上的，加 `--flat`。
+
+包裡的正文停在封裝那一刻。正文改了要重新打一次。
+
 ## 改動須知
 
-SKILL.md 裡不留任何會跟著正文漂的清單和數值：節的清單去讀 README 的「這本書想回答的問題」表，性價比檔的演算法去讀 `index.html` 裡的 `COST_W` 和 `e.ratio` 兩行。所以增刪節、改檔位規則都不用動這個目錄。
+SKILL.md 裡不留任何會跟著正文漂的清單和數值：節的清單去讀 README 的「這本書想回答的問題」表，性價比檔的演算法去讀 `index.html` 裡的 `COST_W` 和 `e.ratio` 兩行，離線包裡的索引是封裝時現算的。所以增刪節、改檔位規則都不用動這個目錄。
