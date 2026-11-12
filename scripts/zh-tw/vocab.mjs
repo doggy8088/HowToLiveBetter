@@ -126,6 +126,12 @@ export const PROTECT = [
   // render it 佔有人. Only the compound is protected, generic 佔有 verbs
   // elsewhere still convert normally.
   ['占有人', '\u0001POSSESSOR\u0001'],
+  // 文件名 / 檔名 (file name): tw2 oscillates in context — first pass
+  // 文件名→檔名, but a second pass reads 中文檔名 as 中文件名, so the
+  // idempotence gate fails on any 中文檔名. Protect both spellings; the
+  // edition's form is 檔名 (the Taiwan term).
+  ['文件名', '\u0001FILENAME\u0001'],
+  ['檔名', '\u0001FILENAME\u0001'],
 ];
 
 export const restore = (t) => {
@@ -161,6 +167,7 @@ export const restore = (t) => {
   t = t.split('\u0001OFFICE\u0001').join('事務所');
   t = t.split('\u0001CONSULAR\u0001').join('領事事務局');
   t = t.split('\u0001POSSESSOR\u0001').join('占有人');
+  t = t.split('\u0001FILENAME\u0001').join('檔名');
   return t;
 };
 
