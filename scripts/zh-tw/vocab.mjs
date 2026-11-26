@@ -132,6 +132,14 @@ export const PROTECT = [
   // edition's form is 檔名 (the Taiwan term).
   ['文件名', '\u0001FILENAME\u0001'],
   ['檔名', '\u0001FILENAME\u0001'],
+  // 败血症 / 敗血症 (sepsis): tw2 renders the simplified form 敗血症 on
+  // the first pass, then reads it as 敗血癥 on a second pass, so the
+  // idempotence gate fails. Other 症 compounds are fixed points (only
+  // 敗血症 oscillates; existing 血癥 forms elsewhere are stable first-pass
+  // output, including verbatim mainland titles in the audit records, and
+  // are left alone). Protect both spellings; the edition's form is 敗血症.
+  ['败血症', '\u0001SEPSIS\u0001'],
+  ['敗血症', '\u0001SEPSIS\u0001'],
 ];
 
 export const restore = (t) => {
@@ -168,6 +176,7 @@ export const restore = (t) => {
   t = t.split('\u0001CONSULAR\u0001').join('領事事務局');
   t = t.split('\u0001POSSESSOR\u0001').join('占有人');
   t = t.split('\u0001FILENAME\u0001').join('檔名');
+  t = t.split('\u0001SEPSIS\u0001').join('敗血症');
   return t;
 };
 
